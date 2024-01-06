@@ -37,7 +37,7 @@ for i, file in enumerate(tqdm(ndpi_files)):
         # print(wsi.width, wsi.height)
 
         print("cropping")
-        wsi = wsi.crop(0, 0, 100, 100)
+        wsi = wsi.crop(0, 0, 300, 300)
 
         print("saving")
         wsi.write_to_file(os.path.join(save_dir, jpg_name))
