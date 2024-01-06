@@ -42,4 +42,4 @@ for i, file in enumerate(tqdm(ndpi_files)):
         wsi_full_resized = wsi_full.resize(scale_factor)
 
         print("saving")
-        wsi_full.write_to_file(os.path.join(save_dir, jpg_name))
+        wsi_full_resized.write_to_file(os.path.join(save_dir, jpg_name))
