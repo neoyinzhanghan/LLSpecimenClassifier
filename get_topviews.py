@@ -26,5 +26,8 @@ for file in tqdm(os.listdir(wsi_dir), desc="Getting topviews"):
         # image = wsi.crop(10000, 10000, 1000, 1000) 
 
         # sys.exit()
+        
+        # print the dimensions of the topview
+        print(wsi.width, wsi.height)
 
-        wsi.write_to_file(os.path.join(save_dir, jpg_name))
+        # wsi.write_to_file(os.path.join(save_dir, jpg_name))
