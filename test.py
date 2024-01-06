@@ -5,17 +5,16 @@ pth = "/pesgisipth/NDPI/H23-852;S12;MSKW - 2023-06-15 16.42.50.ndpi"
 # pth = "/media/hdd3/neo/PB_slides/H23-852;S12;MSKW - 2023-06-15 16.42.50.ndpi"
 
 # Load the image
-image = pyvips.Image.new_from_file(
-    pth, level=0
-)
+image = pyvips.Image.new_from_file(pth, level=0)
 
-topview = pyvips.Image.new_from_file(
-    pth, level=7
-)
+topview = pyvips.Image.new_from_file(pth, level=7)
 
 print(image.width, image.height)
 # Crop the image
 # Parameters: left, top, width, height
+
+# resize the image to the size of the topview
+image = image.resize(topview.width / image.width)
 cropped_image = image.crop(0, 0, topview.width, topview.height)
 
 # print the dimensions of the cropped image
