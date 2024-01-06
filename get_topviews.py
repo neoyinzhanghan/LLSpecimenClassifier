@@ -37,7 +37,7 @@ for i, file in enumerate(tqdm(ndpi_files)):
         # print(wsi.width, wsi.height)
 
         print("cropping")
-        wsi = wsi.crop(0, 0, wsi.width, wsi.height)
+        wsi = wsi.crop(0, 0, 50, 50)
 
         print("saving")
         # convert wsi to a PIL image
