@@ -1,5 +1,6 @@
 import os
 import pyvips
+import sys
 from tqdm import tqdm
 from pathlib import Path
 
@@ -19,5 +20,9 @@ for file in tqdm(os.listdir(wsi_dir), desc="Getting topviews"):
 
         # save the topview as .jpg file in save_dir
         jpg_name = Path(file).stem + ".jpg"
+
+        pyvips.Image.get_fields()
+
+        sys.exit()
 
         wsi.write_to_file(os.path.join(save_dir, jpg_name))
