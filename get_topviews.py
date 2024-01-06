@@ -36,4 +36,6 @@ for i, file in enumerate(tqdm(ndpi_files)):
         # print the dimensions of the topview
         # print(wsi.width, wsi.height)
 
+        wsi = wsi.crop(0, 0, wsi.width, wsi.height)
+
         wsi.write_to_file(os.path.join(save_dir, jpg_name))
