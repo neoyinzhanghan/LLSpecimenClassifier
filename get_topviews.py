@@ -16,13 +16,15 @@ os.makedirs(save_dir, exist_ok=True)
 for file in tqdm(os.listdir(wsi_dir), desc="Getting topviews"):
     if file.startswith("H") or file.startswith("S") and file.endswith(".ndpi"):
         # use pyvips to get the topview of each .ndpi file
-        wsi = pyvips.Image.new_from_file(os.path.join(wsi_dir, file), level=7)
+        wsi = pyvips.Image.new_from_file(os.path.join(wsi_dir, file))
 
         # save the topview as .jpg file in save_dir
         jpg_name = Path(file).stem + ".jpg"
 
         # print(pyvips.Image.get_fields(wsi))
 
+        image = wsi.crop(10000, 10000, 1000, 1000)
+
         # sys.exit()
 
-        wsi.write_to_file(os.path.join(save_dir, jpg_name))
+        image.write_to_file(os.path.join(save_dir, jpg_name))
