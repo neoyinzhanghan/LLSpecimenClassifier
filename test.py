@@ -2,7 +2,7 @@ import pyvips
 
 # Load the image
 image = pyvips.Image.new_from_file(
-    "/pesgisipth/NDPI/H23-9432;S14;MSK1 - 2023-12-12 04.55.10.ndpi", level=7
+    "/pesgisipth/NDPI/H23-9432;S14;MSK1 - 2023-12-12 04.55.10.ndpi", level=0
 )
 
 print(image.width, image.height)
