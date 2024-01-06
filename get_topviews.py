@@ -21,7 +21,6 @@ ndpi_files = [
 
 for i, file in enumerate(tqdm(ndpi_files)):
     if file.startswith("H") or file.startswith("S") and file.endswith(".ndpi"):
-
         print("loading")
         # use pyvips to get the topview of each .ndpi file
         wsi_topview = pyvips.Image.new_from_file(os.path.join(wsi_dir, file), level=7)
@@ -31,10 +30,16 @@ for i, file in enumerate(tqdm(ndpi_files)):
         jpg_name = f"{i}.jpg"
 
         print("resizing")
-        # subsample the full to same dimensions as topview
-        wsi_full = wsi_full.resize(
-            wsi_topview.width, vscale=wsi_topview.height / wsi_full.height
-        )
+
+        # Calculate scale factors for both dimensions
+        scale_factor_width = wsi_topview.width / wsi_full.width
+        scale_factor_height = wsi_topview.height / wsi_full.height
+
+        # Choose the smaller scale factor to maintain aspect ratio
+        scale_factor = min(scale_factor_width, scale_factor_height)
+
+        # Resize the full image
+        wsi_full_resized = wsi_full.resize(scale_factor)
 
         print("saving")
         wsi_full.write_to_file(os.path.join(save_dir, jpg_name))
