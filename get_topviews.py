@@ -22,22 +22,17 @@ ndpi_files = [
 for i, file in enumerate(tqdm(ndpi_files)):
     if file.startswith("H") or file.startswith("S") and file.endswith(".ndpi"):
         # use pyvips to get the topview of each .ndpi file
-        wsi = pyvips.Image.new_from_file(os.path.join(wsi_dir, file), level=7)
+        wsi_topview = pyvips.Image.new_from_file(os.path.join(wsi_dir, file), level=7)
+        wsi_full = pyvips.Image.new_from_file(os.path.join(wsi_dir, file), level=0)
 
         # save the topview as .jpg file in save_dir
         jpg_name = f"{i}.jpg"
 
-        # print(pyvips.Image.get_fields(wsi))
-
-        # image = wsi.crop(10000, 10000, 1000, 1000)
-
-        # sys.exit()
-
-        # print the dimensions of the topview
-        # print(wsi.width, wsi.height)
-
-        print("cropping")
-        wsi = wsi.crop(0, 0, 300, 300)
+        print("resizing")
+        # subsample the full to same dimensions as topview
+        wsi_full = wsi_full.resize(
+            wsi_topview.width, vscale=wsi_topview.height / wsi_full.height
+        )
 
         print("saving")
-        wsi.write_to_file(os.path.join(save_dir, jpg_name))
+        wsi_full.write_to_file(os.path.join(save_dir, jpg_name))
