@@ -6,7 +6,7 @@ pth = "/pesgisipth/NDPI/H23-852;S12;MSKW - 2023-06-15 16.42.50.ndpi"
 
 # Load the image
 image = pyvips.Image.new_from_file(
-    pth, level=7
+    pth, level=0
 )
 
 topview = pyvips.Image.new_from_file(
