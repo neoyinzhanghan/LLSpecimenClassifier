@@ -40,4 +40,7 @@ for i, file in enumerate(tqdm(ndpi_files)):
         wsi = wsi.crop(0, 0, wsi.width, wsi.height)
 
         print("saving")
-        wsi.write_to_file(os.path.join(save_dir, jpg_name))
+        # convert wsi to a PIL image
+        pil_image = wsi.write_to_memory()
+        # save the PIL image as .jpg file
+        pil_image.save(os.path.join(save_dir, jpg_name))
