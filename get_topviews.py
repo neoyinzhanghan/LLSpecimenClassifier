@@ -5,7 +5,7 @@ from tqdm import tqdm
 from pathlib import Path
 
 wsi_dir = "/pesgisipth/NDPI"
-save_dir = "/media/hdd3/neo/all_topviews"
+save_dir = "/home/greg/Documents/neo/dump"
 
 ### Traverse through all .ndpi files in the wsi_dir with filename starting with H and S
 ### use pyvips to get the topview of each .ndpi file which is the slide image at the lowest magnification
