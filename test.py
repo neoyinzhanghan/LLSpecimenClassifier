@@ -13,11 +13,14 @@ print(image.width, image.height)
 # Crop the image
 # Parameters: left, top, width, height
 
+print("resizing and cropping")
 # resize the image to the size of the topview
 image = image.resize(topview.width / image.width)
 cropped_image = image.crop(0, 0, topview.width, topview.height)
 
 # print the dimensions of the cropped image
 print(cropped_image.width, cropped_image.height)
+
+print("saving")
 # Save the cropped image
 cropped_image.write_to_file("region2.jpg")
