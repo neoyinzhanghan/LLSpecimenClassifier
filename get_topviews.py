@@ -1,5 +1,6 @@
 import os
 import pyvips
+from tqdm import tqdm
 
 wsi_dir = "/pesgisipth/NDPI"
 save_dir = "/media/hdd3/neo/all_topviews"
@@ -10,7 +11,7 @@ save_dir = "/media/hdd3/neo/all_topviews"
 
 os.makedirs(save_dir, exist_ok=True)
 
-for file in os.listdir(wsi_dir):
+for file in tqdm(os.listdir(wsi_dir), desc="Getting topviews"):
     if file.startswith("H") or file.startswith("S") and file.endswith(".ndpi"):
         # Construct the full path for the WSI file
         wsi_path = os.path.join(wsi_dir, file)
