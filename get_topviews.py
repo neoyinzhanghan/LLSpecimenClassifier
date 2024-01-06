@@ -13,20 +13,26 @@ save_dir = "/media/hdd3/neo/all_topviews"
 
 os.makedirs(save_dir, exist_ok=True)
 
-for file in tqdm(os.listdir(wsi_dir), desc="Getting topviews"):
+ndpi_files = [
+    file
+    for file in os.listdir(wsi_dir)
+    if file.startswith("H") or file.startswith("S") and file.endswith(".ndpi")
+]
+
+for i, file in enumerate(tqdm(ndpi_files)):
     if file.startswith("H") or file.startswith("S") and file.endswith(".ndpi"):
         # use pyvips to get the topview of each .ndpi file
         wsi = pyvips.Image.new_from_file(os.path.join(wsi_dir, file), level=7)
 
         # save the topview as .jpg file in save_dir
-        jpg_name = Path(file).stem + ".jpg"
+        jpg_name = f"{i}.jpg"
 
         # print(pyvips.Image.get_fields(wsi))
 
-        # image = wsi.crop(10000, 10000, 1000, 1000) 
+        # image = wsi.crop(10000, 10000, 1000, 1000)
 
         # sys.exit()
-        
+
         # print the dimensions of the topview
         # print(wsi.width, wsi.height)
 
