@@ -6,7 +6,7 @@ image = pyvips.Image.new_from_file(
 )
 # Crop the image
 # Parameters: left, top, width, height
-cropped_image = image.crop(10000, 10000, 1000, 1000)
+cropped_image = image.crop(0, 0, 1000, 1000)
 
 # print the dimensions of the cropped image
 print(cropped_image.width, cropped_image.height)
