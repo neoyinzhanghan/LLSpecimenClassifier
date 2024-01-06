@@ -1,8 +1,8 @@
 import pyvips
 
-# pth = "/pesgisipth/NDPI/H23-9432;S14;MSK1 - 2023-12-12 04.55.10.ndpi"
+pth = "/pesgisipth/NDPI/H23-852;S12;MSKW - 2023-06-15 16.42.50.ndpi"
 
-pth = "/media/hdd3/neo/PB_slides/H23-852;S12;MSKW - 2023-06-15 16.42.50.ndpi"
+# pth = "/media/hdd3/neo/PB_slides/H23-852;S12;MSKW - 2023-06-15 16.42.50.ndpi"
 
 # Load the image
 image = pyvips.Image.new_from_file(
