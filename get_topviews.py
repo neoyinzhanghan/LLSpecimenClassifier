@@ -17,7 +17,10 @@ for file in tqdm(os.listdir(wsi_dir), desc="Getting topviews"):
         wsi_path = os.path.join(wsi_dir, file)
 
         # Load the WSI file at the lowest magnification level
-        wsi = pyvips.Image.new_from_file(wsi_path, level="highest")
+        wsi = pyvips.Image.new_from_file(wsi_path, level=0)
+
+        level_count = wsi.get("n-pages")
+        lowest_level = level_count - 1  # The lowest magnification level is the last one
 
         # Construct the save path, removing the original file extension
         file_name_without_extension = os.path.splitext(file)[0]
