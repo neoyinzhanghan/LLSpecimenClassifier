@@ -21,6 +21,8 @@ ndpi_files = [
 
 for i, file in enumerate(tqdm(ndpi_files)):
     if file.startswith("H") or file.startswith("S") and file.endswith(".ndpi"):
+
+        print("loading")
         # use pyvips to get the topview of each .ndpi file
         wsi_topview = pyvips.Image.new_from_file(os.path.join(wsi_dir, file), level=7)
         wsi_full = pyvips.Image.new_from_file(os.path.join(wsi_dir, file), level=0)
