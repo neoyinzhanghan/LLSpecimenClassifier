@@ -7,5 +7,8 @@ image = pyvips.Image.new_from_file(
 # Crop the image
 # Parameters: left, top, width, height
 cropped_image = image.crop(10000, 10000, 1000, 1000)
+
+# print the dimensions of the cropped image
+print(cropped_image.width, cropped_image.height)
 # Save the cropped image
 cropped_image.write_to_file("region2.jpg")
