@@ -21,7 +21,7 @@ for file in tqdm(os.listdir(wsi_dir), desc="Getting topviews"):
         # save the topview as .jpg file in save_dir
         jpg_name = Path(file).stem + ".jpg"
 
-        pyvips.Image.get_fields(wsi)
+        print(pyvips.Image.get_fields(wsi))
 
         sys.exit()
 
