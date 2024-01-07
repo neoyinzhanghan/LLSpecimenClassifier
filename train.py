@@ -74,7 +74,7 @@ class ResNetClassifier(pl.LightningModule):
 
 def main():
     # Set data directory
-    data_dir = "/media/hdd3/neo/topview_1k_split"
+    data_dir = "/media/hdd3/neo/topviews_1k_split"
 
     # Set the number of classes in your dataset
     num_classes = 4
