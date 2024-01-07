@@ -55,7 +55,7 @@ if __name__ == "__main__":
     model = load_model_from_checkpoint(checkpoint_path, num_classes)
 
     image_path = (
-        "/media/hdd3/neo/topviews_1k/Others/H21-5644_S10_MSK6_2023-05-23_17.55.11.png"
+        "/media/hdd3/neo/topviews_1k/PB/H22-2466_S12_MSKY_2023-05-26_12.13.08.png"
     )
 
     prediction = predict_image(model, image_path)
