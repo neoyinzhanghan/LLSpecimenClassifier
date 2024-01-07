@@ -37,7 +37,7 @@ def predict_image(model, image_path):
 
 if __name__ == "__main__":
     # Example usage
-    checkpoint_path = "/Users/neo/Documents/Research/DeepHeme/LLResults/LLSpecimenClassifier/lightning_logs/version_0/checkpoints/epoch=99-step=1600.ckpt"
+    checkpoint_path = "/home/greg/Documents/neo/LLSpecimenClassifier/lightning_logs/version_0/checkpoints/epoch=99-step=1600.ckpt"
     num_classes = 4  # Set the correct number of classes
     model = load_model_from_checkpoint(checkpoint_path, num_classes)
 
