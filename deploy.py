@@ -20,12 +20,15 @@ def predict_image(model, image_path):
         [
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
+            transforms.Lambda(
+                lambda x: x[:3, :, :]
+            ),  # Keep only the first three channels
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ]
     )
 
     # Open the image, apply transformations and add batch dimension
-    image = Image.open(image_path)
+    image = Image.open(image_path).convert("RGB")  # Convert image to RGB
     image = transform(image).unsqueeze(0)  # Add batch dimension
 
     # Perform inference
