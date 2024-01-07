@@ -13,7 +13,6 @@ def load_model_from_checkpoint(checkpoint_path, num_classes):
     return model
 
 
-# Function to perform inference on a single image
 def predict_image(model, image_path):
     # Define the same transformations as used during training
     transform = transforms.Compose(
@@ -30,6 +29,10 @@ def predict_image(model, image_path):
     # Open the image, apply transformations and add batch dimension
     image = Image.open(image_path).convert("RGB")  # Convert image to RGB
     image = transform(image).unsqueeze(0)  # Add batch dimension
+
+    # Move the image tensor to the same device as the model
+    device = next(model.parameters()).device  # Get the device of the model
+    image = image.to(device)
 
     # Perform inference
     with torch.no_grad():
