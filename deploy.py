@@ -3,6 +3,13 @@ from torchvision import transforms
 from PIL import Image
 from train import ResNetClassifier
 
+class_dct = {
+    0: "BMA",
+    1: "MPBorIBMA",
+    2: "Others",
+    3: "PB",
+}
+
 
 # Function to load the model from a checkpoint
 def load_model_from_checkpoint(checkpoint_path, num_classes):
