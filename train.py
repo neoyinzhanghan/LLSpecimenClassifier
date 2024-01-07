@@ -53,8 +53,10 @@ class ResNetClassifier(pl.LightningModule):
         self.model.fc = nn.Linear(in_features, num_classes)
         self.learning_rate = learning_rate
 
-        self.train_accuracy = Accuracy()
-        self.val_accuracy = Accuracy()
+        # Initialize metrics
+        task = "multiclass"
+        self.train_accuracy = Accuracy(num_classes=num_classes, task=task)
+        self.val_accuracy = Accuracy(num_classes=num_classes, task=task)
         self.train_f1 = F1Score(num_classes=num_classes)
         self.val_f1 = F1Score(num_classes=num_classes)
         self.train_auroc = AUROC(num_classes=num_classes)
