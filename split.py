@@ -34,9 +34,9 @@ def split_dataset(root_dir, save_dir, train_size=0.8):
 
 
 if __name__ == "__main__":
-    dataset_root = "/media/hdd3/neo/topview_1k"  # Replace with your dataset path
+    dataset_root = "/media/hdd3/neo/topviews_1k"  # Replace with your dataset path
     save_directory = (
-        "/media/hdd3/neo/topview_1k_split"  # Replace with your save directory path
+        "/media/hdd3/neo/topviews_1k_split"  # Replace with your save directory path
     )
 
     os.makedirs(save_directory, exist_ok=True)
