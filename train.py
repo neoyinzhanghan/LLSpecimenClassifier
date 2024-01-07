@@ -35,10 +35,10 @@ class ImageDataModule(pl.LightningDataModule):
             )
 
     def train_dataloader(self):
-        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=24)
 
     def val_dataloader(self):
-        return DataLoader(self.val_dataset, batch_size=self.batch_size)
+        return DataLoader(self.val_dataset, batch_size=self.batch_size, num_workers=24)
 
 
 class ResNetClassifier(pl.LightningModule):
@@ -84,7 +84,7 @@ def main():
     model = ResNetClassifier(num_classes=num_classes)
 
     # Initialize PyTorch Lightning trainer
-    trainer = pl.Trainer(max_epochs=100)
+    trainer = pl.Trainer(max_epochs=100, gpus=3)
     trainer.fit(model, data_module)
 
 
