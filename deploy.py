@@ -45,7 +45,7 @@ def predict_image(model, image_path):
     with torch.no_grad():
         logits = model(image)
         predictions = torch.argmax(logits, dim=1)
-    return class_dct[predictions.item()]
+    return class_dct[int(predictions)]
 
 
 if __name__ == "__main__":
