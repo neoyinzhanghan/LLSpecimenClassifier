@@ -54,13 +54,14 @@ class ResNetClassifier(pl.LightningModule):
         self.learning_rate = learning_rate
 
         # Initialize metrics
-        task = "multiclass"
+        task = 'multiclass'
         self.train_accuracy = Accuracy(num_classes=num_classes, task=task)
         self.val_accuracy = Accuracy(num_classes=num_classes, task=task)
-        self.train_f1 = F1Score(num_classes=num_classes)
-        self.val_f1 = F1Score(num_classes=num_classes)
+        self.train_f1 = F1Score(num_classes=num_classes, task=task)
+        self.val_f1 = F1Score(num_classes=num_classes, task=task)
         self.train_auroc = AUROC(num_classes=num_classes)
         self.val_auroc = AUROC(num_classes=num_classes)
+
 
     def forward(self, x):
         return self.model(x)
