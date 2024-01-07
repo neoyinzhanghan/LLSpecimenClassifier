@@ -41,6 +41,8 @@ if __name__ == "__main__":
     num_classes = 4  # Set the correct number of classes
     model = load_model_from_checkpoint(checkpoint_path, num_classes)
 
-    image_path = "/Users/neo/Documents/Research/DeepHeme/LLData/topviews_1k/BMA/H22-10251_S11_MSKY_2023-06-12_18.55.56.png"
+    image_path = (
+        "/media/hdd3/neo/topviews_1k/BMA/H22-10251_S11_MSKY_2023-06-12_18.55.56.png"
+    )
     prediction = predict_image(model, image_path)
     print(f"Predicted class: {prediction.item()}")
