@@ -45,7 +45,7 @@ def predict_image(model, image_path):
     with torch.no_grad():
         logits = model(image)
         predictions = torch.argmax(logits, dim=1)
-    return class_dct[int(predictions)]
+    return class_dct[predictions.item()]
 
 
 if __name__ == "__main__":
@@ -58,4 +58,4 @@ if __name__ == "__main__":
         "/media/hdd3/neo/topviews_1k/BMA/H22-10251_S11_MSKY_2023-06-12_18.55.56.png"
     )
     prediction = predict_image(model, image_path)
-    print(f"Predicted class: {prediction.item()}")
+    print(f"Predicted class: {prediction}")
