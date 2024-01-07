@@ -6,6 +6,7 @@ from torch.nn import functional as F
 from torchvision import models, transforms
 from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
+from torchmetrics import Accuracy, F1Score, AUROC
 
 
 class ImageDataModule(pl.LightningDataModule):
@@ -35,7 +36,9 @@ class ImageDataModule(pl.LightningDataModule):
             )
 
     def train_dataloader(self):
-        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=24)
+        return DataLoader(
+            self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=24
+        )
 
     def val_dataloader(self):
         return DataLoader(self.val_dataset, batch_size=self.batch_size, num_workers=24)
@@ -50,6 +53,13 @@ class ResNetClassifier(pl.LightningModule):
         self.model.fc = nn.Linear(in_features, num_classes)
         self.learning_rate = learning_rate
 
+        self.train_accuracy = Accuracy()
+        self.val_accuracy = Accuracy()
+        self.train_f1 = F1Score(num_classes=num_classes)
+        self.val_f1 = F1Score(num_classes=num_classes)
+        self.train_auroc = AUROC(num_classes=num_classes)
+        self.val_auroc = AUROC(num_classes=num_classes)
+
     def forward(self, x):
         return self.model(x)
 
@@ -58,6 +68,13 @@ class ResNetClassifier(pl.LightningModule):
         logits = self(x)
         loss = F.cross_entropy(logits, y)
         self.log("train_loss", loss)
+
+        # Calculate and log additional metrics
+        preds = torch.argmax(logits, dim=1)
+        self.log("train_acc", self.train_accuracy(preds, y))
+        self.log("train_f1", self.train_f1(preds, y))
+        self.log("train_auroc", self.train_auroc(F.softmax(logits, dim=1), y))
+
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -65,6 +82,13 @@ class ResNetClassifier(pl.LightningModule):
         logits = self(x)
         loss = F.cross_entropy(logits, y)
         self.log("val_loss", loss)
+
+        # Calculate and log additional metrics
+        preds = torch.argmax(logits, dim=1)
+        self.log("val_acc", self.val_accuracy(preds, y))
+        self.log("val_f1", self.val_f1(preds, y))
+        self.log("val_auroc", self.val_auroc(F.softmax(logits, dim=1), y))
+
         return loss
 
     def configure_optimizers(self):
@@ -84,7 +108,7 @@ def main():
     model = ResNetClassifier(num_classes=num_classes)
 
     # Initialize PyTorch Lightning trainer
-    trainer = pl.Trainer(max_epochs=100, gpus=3)
+    trainer = pl.Trainer(max_epochs=100, devices=3, accelerator="gpu")
     trainer.fit(model, data_module)
 
 
