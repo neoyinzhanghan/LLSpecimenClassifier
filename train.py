@@ -5,6 +5,7 @@ from torch import nn
 from torch.nn import functional as F
 from torchvision import models, transforms
 from torchvision.datasets import ImageFolder
+from torchvision.models import resnet50, ResNet50_Weights
 from torch.utils.data import DataLoader
 from torchmetrics import Accuracy, F1Score, AUROC
 
@@ -45,23 +46,24 @@ class ImageDataModule(pl.LightningDataModule):
 
 
 class ResNetClassifier(pl.LightningModule):
-    def __init__(self, num_classes: int, learning_rate: float = 0.001):
+    def __init__(
+        self,
+        num_classes: int,
+        learning_rate: float = 0.001,
+        use_pretrained_weights=True,
+    ):
         super().__init__()
         self.save_hyperparameters()
-        self.model = models.resnet50(pretrained=True)
+        if use_pretrained_weights:
+            weights = ResNet50_Weights.IMAGENET1K_V1
+        else:
+            weights = None
+        self.model = resnet50(weights=weights)
         in_features = self.model.fc.in_features
         self.model.fc = nn.Linear(in_features, num_classes)
         self.learning_rate = learning_rate
 
-        # Initialize metrics
-        task = 'multiclass'
-        self.train_accuracy = Accuracy(num_classes=num_classes, task=task)
-        self.val_accuracy = Accuracy(num_classes=num_classes, task=task)
-        self.train_f1 = F1Score(num_classes=num_classes, task=task)
-        self.val_f1 = F1Score(num_classes=num_classes, task=task)
-        self.train_auroc = AUROC(num_classes=num_classes, task=task)
-        self.val_auroc = AUROC(num_classes=num_classes, task=task)
-
+        # ... rest of your class code ...
 
     def forward(self, x):
         return self.model(x)
